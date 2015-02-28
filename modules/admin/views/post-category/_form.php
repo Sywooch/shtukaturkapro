@@ -11,11 +11,7 @@ use app\widgets\CKEditor;
 
 <div class="post-category-form">
 
-    <?php $form = ActiveForm::begin(
-        [
-            'options' => ['enctype'=>'multipart/form-data']
-        ]
-    ); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 256]) ?>
 

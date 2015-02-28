@@ -38,10 +38,10 @@ class PostCategory extends \yii\db\ActiveRecord
     {
         return [
             [['title'],'required'],
-            [['image'],'file','extensions'=>['jpg','png','gif']],
+            ['image','file','extensions'=>'jpg,png,gif','skipOnEmpty'=>true],
             [['content', 'metaDescription'], 'string'],
             [['views', 'position'], 'integer'],
-            [['title', 'url', 'image', 'metaKeywords', 'metaTitle'], 'string', 'max' => 256]
+            [['title', 'url', 'metaKeywords', 'metaTitle'], 'string', 'max' => 256]
         ];
     }
 
@@ -73,16 +73,6 @@ class PostCategory extends \yii\db\ActiveRecord
     {
         if(empty($this->url))
             $this->url = Translit::str2url($this->title);
-
-        $file = UploadedFile::getInstance($this,'image');
-        if($file)
-        {
-            $filename = Translit::str2url($this->title).'.'.$file->extension;
-            if($file->saveAs('upload/post-category/'.$filename))
-            {
-                $this->image = $filename;
-            }
-        }
 
         return parent::beforeSave(true);
     }

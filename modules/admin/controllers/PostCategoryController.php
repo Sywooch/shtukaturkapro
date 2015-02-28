@@ -7,6 +7,7 @@ use app\models\PostCategory;
 use app\models\PostCategorySearch;
 use app\modules\admin\controllers\AdminController;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * PostCategoryController implements the CRUD actions for PostCategory model.
@@ -49,13 +50,31 @@ class PostCategoryController extends AdminController
     {
         $model = new PostCategory();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if(Yii::$app->request->isPost)
+        {
+            $model->load(Yii::$app->request->post());
+            $image = UploadedFile::getInstance($model,'image');
+
+            if($image)
+                $model->image = $image;
+
+            if($model->validate())
+            {
+                if($image)
+                {
+                    $filename = \app\components\Translit::str2url($model->title).'.'.$model->image->extension;
+                    $model->image->saveAs('upload/post-category/'.$filename);
+                    $model->image = $filename;
+                }
+
+                if($model->save())
+                    return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -68,13 +87,28 @@ class PostCategoryController extends AdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if(Yii::$app->request->isPost)
+        {
+            $model->load(Yii::$app->request->post());
+            $image = UploadedFile::getInstance($model,'image');
+
+            if($image)
+                $model->image = $image;
+
+            if($model->validate())
+            {
+                if($image)
+                {
+                    $filename = \app\components\Translit::str2url($model->title).'.'.$model->image->extension;
+                    $model->image->saveAs('upload/post-category/'.$filename);
+                    $model->image = $filename;
+                }
+
+                if($model->save())
+                    return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('update',['model'=>$model]);
     }
 
     /**

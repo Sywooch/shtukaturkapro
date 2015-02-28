@@ -1210,7 +1210,7 @@ class BaseHtml
     {
         // add a hidden field so that if a model only has a file field, we can
         // still use isset($_POST[$modelClass]) to detect if the input is submitted
-        return static::activeHiddenInput($model, $attribute, ['value' => $model->{$attribute}])
+        return static::activeHiddenInput($model, $attribute, ['id' => $attribute, 'value' => $model->{$attribute}])
             . static::activeInput('file', $model, $attribute, $options);
     }
 
