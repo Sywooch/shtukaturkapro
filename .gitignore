@@ -13,6 +13,7 @@ nbproject
 Thumbs.db
 
 /web/assets
+/web/upload
 
 # composer itself is not needed
 composer.phar
