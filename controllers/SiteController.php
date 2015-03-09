@@ -43,6 +43,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        //вывод категорий
+
+
         return $this->render('index');
     }
 

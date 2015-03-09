@@ -22,6 +22,7 @@ $this->title = Yii::$app->settings->get('siteName').' - админка';
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
@@ -35,11 +36,6 @@ $this->title = Yii::$app->settings->get('siteName').' - админка';
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Блог', 'items'=>[
-                        ['label'=>'Категории','url'=>['/admin/post-category']],
-                        ['label'=>'Записи','url'=>['/admin/post']],
-                    ]],
-                    ['label' => 'Настройки', 'url' => ['/admin/default/settings']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Авторизация', 'url' => ['/site/login']] :
                         ['label' => 'Выход (' . Yii::$app->user->identity->username . ')',
@@ -51,10 +47,6 @@ $this->title = Yii::$app->settings->get('siteName').' - админка';
         ?>
 
         <div class="container">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

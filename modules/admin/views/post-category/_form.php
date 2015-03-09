@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\widgets\CKEditor;
+use app\models\PostCategory;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PostCategory */
@@ -12,6 +13,8 @@ use app\widgets\CKEditor;
 <div class="post-category-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
+    <?= $form->field($model, 'parentId')->dropDownList(PostCategory::getDropdown($model->id),['prompt'=>'---'])?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 256]) ?>
 

@@ -18,7 +18,7 @@ class PostCategorySearch extends PostCategory
     public function rules()
     {
         return [
-            [['id', 'views', 'position'], 'integer'],
+            [['id', 'views', 'position','parentId'], 'integer'],
             [['title', 'url', 'content', 'image', 'metaKeywords', 'metaDescription', 'metaTitle'], 'safe'],
         ];
     }
@@ -67,7 +67,8 @@ class PostCategorySearch extends PostCategory
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'metaKeywords', $this->metaKeywords])
             ->andFilterWhere(['like', 'metaDescription', $this->metaDescription])
-            ->andFilterWhere(['like', 'metaTitle', $this->metaTitle]);
+            ->andFilterWhere(['like', 'metaTitle', $this->metaTitle])
+            ->andFilterWhere(['like', 'parentId', $this->parentId]);
 
         return $dataProvider;
     }

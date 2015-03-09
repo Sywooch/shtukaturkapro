@@ -24,16 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            'id',
             'title',
             'url:url',
-            'content:ntext',
-            'image',
+            [
+                'attribute'=>'parentId',
+                'value'=>function($model){
+                    return $model->ParentTitle;
+                },
+                'filter'=>\app\models\PostCategory::getDropdown()
+            ],
             // 'metaKeywords',
             // 'metaDescription:ntext',
             // 'metaTitle',
             // 'views',
-            // 'position',
+            'position',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
